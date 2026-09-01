@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>นครราชสีมา | เมืองโคราช</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #f7f3eb;
+            color: #3b291d;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 7%;
+
+            background: rgba(40, 25, 15, 0.75);
+            backdrop-filter: blur(10px);
+
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .logo span {
+            color: #f5c45b;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #f5c45b;
+        }
+
+
+        /* =========================
+           HERO / COVER
+        ========================= */
+
+        .hero {
+            height: 100vh;
+            min-height: 650px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    rgba(20, 15, 10, 0.35),
+                    rgba(20, 15, 10, 0.75)
+                ),
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7")
+                center center / cover no-repeat;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 190, 70, 0.20);
+
+            filter: blur(90px);
+
+            top: -200px;
+            right: -100px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 900px;
+
+            padding: 30px;
+
+            color: white;
+
+            animation: fadeUp 1.3s ease;
+        }
+
+        .small-title {
+            font-size: 21px;
+            letter-spacing: 6px;
+
+            color: #f7ce69;
+
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(60px, 10vw, 130px);
+
+            line-height: 1;
+
+            font-weight: 700;
+
+            text-shadow:
+                3px 5px 20px rgba(0,0,0,0.7);
+        }
+
+        .hero h2 {
+            margin-top: 20px;
+
+            font-size: clamp(22px, 4vw, 36px);
+
+            font-weight: 400;
+
+            color: #fff1c8;
+        }
+
+        .hero p {
+            max-width: 700px;
+
+            margin: 25px auto 35px;
+
+            line-height: 1.9;
+
+            font-size: 17px;
+
+            color: #f8f3ea;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .btn {
+            display: inline-block;
+
+            padding: 14px 35px;
+
+            background: #d89b32;
+
+            border-radius: 50px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background: #f1b94e;
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.4);
+        }
+
+
+        /* =========================
+           SCROLL
+        ========================= */
+
+        .scroll {
+            position: absolute;
+
+            bottom: 25px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: white;
+
+            font-size: 14px;
+
+            opacity: 0.85;
+        }
+
+        .arrow {
+            display: block;
+
+            font-size: 28px;
+
+            margin-top: 5px;
+
+            animation: bounce 1.5s infinite;
+        }
+
+
+        /* =========================
+           INTRO
+        ========================= */
+
+        .intro {
+            padding: 90px 8%;
+
+            text-align: center;
+
+            background: #fffaf2;
+        }
+
+        .section-title {
+            font-size: 42px;
+
+            color: #7c431e;
+
+            margin-bottom: 15px;
+        }
+
+        .section-title span {
+            color: #d39a30;
+        }
+
+        .intro-text {
+            max-width: 750px;
+
+            margin: auto;
+
+            line-height: 1.9;
+
+            color: #705d4e;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           TOURIST PLACES
+        ========================= */
+
+        .places {
+            padding: 80px 8%;
+        }
+
+        .places-header {
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(260px, 1fr));
+
+            gap: 28px;
+        }
+
+        .card {
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 30px rgba(80, 50, 20, 0.12);
+
+            transition: 0.35s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+
+            box-shadow:
+                0 18px 40px rgba(80, 50, 20, 0.20);
+        }
+
+        .card-image {
+            height: 220px;
+
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        .khaoyai {
+            background-image:
+                url("https://images.unsplash.com/photo-1511497584788-876760111969");
+        }
+
+        .waterfall {
+            background-image:
+                url("https://images.unsplash.com/photo-1433086966358-54859d0ed716");
+        }
+
+        .mountain {
+            background-image:
+                url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b");
+        }
+
+        .temple {
+            background-image:
+                url("https://images.unsplash.com/photo-1548919973-5cef591cdbc9");
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 23px;
+
+            color: #7d421d;
+
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            color: #776557;
+
+            line-height: 1.8;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           HIGHLIGHT
+        ========================= */
+
+        .highlight {
+            padding: 90px 8%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6f3b1c,
+                    #3b2417
+                );
+
+            color: white;
+
+            text-align: center;
+        }
+
+        .highlight h2 {
+            font-size: 42px;
+
+            margin-bottom: 20px;
+
+            color: #f7cf72;
+        }
+
+        .highlight p {
+            max-width: 750px;
+
+            margin: auto;
+
+            line-height: 1.9;
+
+            color: #eadbca;
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            padding: 80px 8%;
+
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 25px;
+
+            margin-top: 40px;
+        }
+
+        .feature {
+            padding: 30px 20px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px rgba(70, 45, 20, 0.10);
+        }
+
+        .feature-icon {
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            color: #7b421e;
+
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #776557;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #25160e;
+
+            color: #d8c7b4;
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            line-height: 1.8;
+        }
+
+        footer strong {
+            color: #f2c45d;
+        }
+
+
+        /* =========================
+           ANIMATION
+        ========================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes bounce {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                min-height: 600px;
+            }
+
+            .small-title {
+                font-size: 15px;
+
+                letter-spacing: 3px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .section-title,
+            .highlight h2 {
+                font-size: 32px;
+            }
+
+            .places,
+            .features,
+            .intro {
+                padding: 60px 6%;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            KORAT<span>.</span>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="#home">หน้าแรก</a>
+            </li>
+
+            <li>
+                <a href="#places">สถานที่ท่องเที่ยว</a>
+            </li>
+
+            <li>
+                <a href="#about">เกี่ยวกับโคราช</a>
+            </li>
+
+            <li>
+                <a href="#contact">ติดต่อ</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="small-title">
+                NAKHON RATCHASIMA
+            </div>
+
+            <h1>
+                นครราชสีมา
+            </h1>
+
+            <h2>
+                เมืองโคราช • ประตูสู่อีสาน
+            </h2>
+
+            <p>
+                สัมผัสเสน่ห์แห่งเมืองย่าโม
+                ดินแดนแห่งธรรมชาติ ประวัติศาสตร์
+                วัฒนธรรม และสถานที่ท่องเที่ยวอันงดงาม
+            </p>
+
+            <a href="#places" class="btn">
+                🌿 สำรวจสถานที่ท่องเที่ยว
+            </a>
+
+        </div>
+
+
+        <div class="scroll">
+
+            เลื่อนลงเพื่อสำรวจ
+
+            <span class="arrow">
+                ↓
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         INTRO
+    ========================= -->
+
+    <section class="intro" id="about">
+
+        <h2 class="section-title">
+            ยินดีต้อนรับสู่ <span>โคราช</span>
+        </h2>
+
+        <p class="intro-text">
+
+            จังหวัดนครราชสีมา หรือที่เรียกกันว่า “โคราช”
+            เป็นจังหวัดขนาดใหญ่ของภาคตะวันออกเฉียงเหนือ
+            เต็มไปด้วยสถานที่ท่องเที่ยวที่หลากหลาย
+            ทั้งธรรมชาติอันสวยงาม แหล่งประวัติศาสตร์
+            วัฒนธรรม และอาหารท้องถิ่นที่มีเอกลักษณ์
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         PLACES
+    ========================= -->
+
+    <section class="places" id="places">
+
+        <div class="places-header">
+
+            <h2 class="section-title">
+                สถานที่ <span>ท่องเที่ยว</span>
+            </h2>
+
+            <p class="intro-text">
+                มารู้จักสถานที่ท่องเที่ยวที่น่าสนใจ
+                ของจังหวัดนครราชสีมา
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <!-- Card 1 -->
+
+            <div class="card">
+
+                <div class="card-image khaoyai"></div>
+
+                <div class="card-content">
+
+                    <h3>
+                        🌳 อุทยานแห่งชาติเขาใหญ่
+                    </h3>
+
+                    <p>
+                        สัมผัสธรรมชาติ ผืนป่า ภูเขา
+                        และความหลากหลายทางชีวภาพ
+                        เหมาะสำหรับการท่องเที่ยวและพักผ่อน
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 2 -->
+
+            <div class="card">
+
+                <div class="card-image waterfall"></div>
+
+                <div class="card-content">
+
+                    <h3>
+                        💦 น้ำตก
+                    </h3>
+
+                    <p>
+                        เพลิดเพลินกับความสวยงามของน้ำตก
+                        และธรรมชาติอันร่มรื่น
+                        เหมาะสำหรับการพักผ่อนท่ามกลางป่าเขา
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 3 -->
+
+            <div class="card">
+
+                <div class="card-image mountain"></div>
+
+                <div class="card-content">
+
+                    <h3>
+                        ⛰️ วังน้ำเขียว
+                    </h3>
+
+                    <p>
+                        ดินแดนแห่งภูเขาและอากาศบริสุทธิ์
+                        มีจุดชมวิวและธรรมชาติที่สวยงาม
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 4 -->
+
+            <div class="card">
+
+                <div class="card-image temple"></div>
+
+                <div class="card-content">
+
+                    <h3>
+                        🏯 วัฒนธรรมโคราช
+                    </h3>
+
+                    <p>
+                        เรียนรู้เรื่องราวทางประวัติศาสตร์
+                        ศิลปวัฒนธรรม และวิถีชีวิต
+                        ที่เป็นเอกลักษณ์ของชาวโคราช
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         HIGHLIGHT
+    ========================= -->
+
+    <section class="highlight">
+
+        <h2>
+            เมืองย่าโม
+        </h2>
+
+        <p>
+
+            นครราชสีมาไม่ได้มีเพียงธรรมชาติที่งดงาม
+            แต่ยังเป็นเมืองที่มีประวัติศาสตร์และวัฒนธรรม
+            อันเป็นเอกลักษณ์
+            มาเที่ยวโคราช แล้วคุณจะได้พบกับเรื่องราว
+            และประสบการณ์ที่น่าประทับใจ
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         FEATURES
+    ========================= -->
+
+    <section class="features">
+
+        <h2 class="section-title">
+            เสน่ห์ของ <span>โคราช</span>
+        </h2>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🏞️
+                </div>
+
+                <h3>
+                    ธรรมชาติ
+                </h3>
+
+                <p>
+                    ภูเขา ป่าไม้ น้ำตก
+                    และแหล่งท่องเที่ยวทางธรรมชาติ
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    ประวัติศาสตร์
+                </h3>
+
+                <p>
+                    เมืองที่มีเรื่องราวทางประวัติศาสตร์
+                    และวัฒนธรรมที่น่าสนใจ
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🍜
+                </div>
+
+                <h3>
+                    อาหาร
+                </h3>
+
+                <p>
+                    ลิ้มลองอาหารพื้นเมือง
+                    และอาหารขึ้นชื่อของโคราช
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    ผู้คน
+                </h3>
+
+                <p>
+                    สัมผัสวิถีชีวิตและมิตรไมตรี
+                    ของชาวโคราช
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer id="contact">
+
+        <p>
+            © 2026
+            <strong>นครราชสีมา</strong>
+            | เมืองโคราช ประตูสู่อีสาน
+        </p>
+
+        <p>
+            เว็บไซต์แนะนำสถานที่ท่องเที่ยวจังหวัดนครราชสีมา
+        </p>
+
+    </footer>
+
+
+</body>
+</html>
+
